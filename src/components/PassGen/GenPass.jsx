@@ -8,6 +8,7 @@ const GenPass = () => {
   const [password, setPassword] = useState('');
   const [passwordHistory, setPasswordHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [showSettings, setShowSettings] = useState(true); 
   const [settings, setSettings] = useState({
     length: 16,
     includeUppercase: true,
@@ -15,7 +16,6 @@ const GenPass = () => {
     includeNumbers: true,
     includeSymbols: true,
   });
-  const [showSettings, setShowSettings] = useState(false);
 
   const generatePassword = () => {
     const charset = {
@@ -31,6 +31,11 @@ const GenPass = () => {
     if (settings.includeNumbers) chars += charset.numbers;
     if (settings.includeSymbols) chars += charset.symbols;
 
+    if (!chars) {
+      alert('Please select at least one character type!');
+      return;
+    }
+
     let newPassword = '';
     for (let i = 0; i < settings.length; i++) {
       newPassword += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -38,6 +43,68 @@ const GenPass = () => {
 
     setPassword(newPassword);
     setPasswordHistory(prev => [...prev, { password: newPassword, timestamp: new Date() }].slice(-10));
+  };
+
+  const getStrengthDescription = (password) => {
+    if (!password) return null;
+    
+    let strength = 0;
+    let feedback = [];
+
+    if (password.length >= 12) {
+      strength += 2;
+      feedback.push('✅ Good length (12+ characters)');
+    } else if (password.length >= 8) {
+      strength += 1;
+      feedback.push('⚠️ Decent length (8+ characters)');
+    } else {
+      feedback.push('❌ Too short (less than 8 characters)');
+    }
+
+    if (/[A-Z]/.test(password)) {
+      strength += 1;
+      feedback.push('✅ Contains uppercase letters');
+    }
+    if (/[a-z]/.test(password)) {
+      strength += 1;
+      feedback.push('✅ Contains lowercase letters');
+    }
+    if (/[0-9]/.test(password)) {
+      strength += 1;
+      feedback.push('✅ Contains numbers');
+    }
+    if (/[^A-Za-z0-9]/.test(password)) {
+      strength += 1;
+      feedback.push('✅ Contains special characters');
+    }
+
+    if (/(.)\1{2,}/.test(password)) {
+      strength -= 1;
+      feedback.push('❌ Contains repeated characters');
+    }
+    if (/^[A-Za-z]+$/.test(password) || /^[0-9]+$/.test(password)) {
+      strength -= 1;
+      feedback.push('❌ Lacks character variety');
+    }
+
+    let strengthText = '';
+    if (strength >= 5) strengthText = 'Very Strong 💪';
+    else if (strength >= 4) strengthText = 'Strong 👍';
+    else if (strength >= 3) strengthText = 'Moderate 👌';
+    else if (strength >= 2) strengthText = 'Weak ⚠️';
+    else strengthText = 'Very Weak ❌';
+
+    return {
+      strength: strengthText,
+      feedback,
+      tips: [
+        '🔑 Use a mix of characters',
+        '📏 Aim for 12+ characters',
+        '🎲 Avoid common patterns',
+        '🚫 Avoid personal info',
+        '🔄 Change passwords regularly'
+      ]
+    };
   };
 
   return (
@@ -60,7 +127,7 @@ const GenPass = () => {
         </button>
 
         <button 
-          className="control-btn settings" 
+          className={`control-btn settings ${showSettings ? 'active' : ''}`}
           onClick={() => setShowSettings(!showSettings)}
         >
           <FaGears />
@@ -90,7 +157,7 @@ const GenPass = () => {
                   checked={settings.includeUppercase}
                   onChange={(e) => setSettings({ ...settings, includeUppercase: e.target.checked })}
                 />
-                Uppercase Letters
+                Uppercase Letters (A-Z)
               </label>
             </div>
             <div className="setting-item">
@@ -100,7 +167,7 @@ const GenPass = () => {
                   checked={settings.includeLowercase}
                   onChange={(e) => setSettings({ ...settings, includeLowercase: e.target.checked })}
                 />
-                Lowercase Letters
+                Lowercase Letters (a-z)
               </label>
             </div>
             <div className="setting-item">
@@ -110,7 +177,7 @@ const GenPass = () => {
                   checked={settings.includeNumbers}
                   onChange={(e) => setSettings({ ...settings, includeNumbers: e.target.checked })}
                 />
-                Numbers
+                Numbers (0-9)
               </label>
             </div>
             <div className="setting-item">
@@ -120,7 +187,7 @@ const GenPass = () => {
                   checked={settings.includeSymbols}
                   onChange={(e) => setSettings({ ...settings, includeSymbols: e.target.checked })}
                 />
-                Special Characters
+                Special Characters (!@#$%^&*)
               </label>
             </div>
           </div>
@@ -143,7 +210,7 @@ const GenPass = () => {
         </div>
       )}
 
-      {password && <PasswordAnalysis password={password} />}
+      {password && <PasswordAnalysis password={password} getStrengthDescription={getStrengthDescription} />}
     </div>
   );
 };

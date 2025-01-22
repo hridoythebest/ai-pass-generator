@@ -2,117 +2,78 @@
   cursor: none !important;
 }
 
-.cursor-outer,
-.cursor-inner {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
+body {
+  overflow-x: hidden;
+  cursor: none !important;
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-color);
   border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
   z-index: 9999;
-  transition: transform 0.1s ease-out;
-}
-
-.cursor-outer {
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(12, 255, 12, 0.5);
   mix-blend-mode: difference;
-  animation: rotateOuter 4s linear infinite;
-  
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  background: transparent;
+
   &::after {
     content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border: 1px solid var(--neon-green);
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
     border-radius: 50%;
-    opacity: 0.3;
-    animation: pulseOuter 2s ease-out infinite;
-  }
-
-  &.cursor-hover {
-    transform: translate(-50%, -50%) scale(1.5);
-    background: rgba(12, 255, 12, 0.1);
-    border-color: var(--cyber-blue);
-    
-    &::after {
-      animation: none;
-      opacity: 0;
-    }
-  }
-}
-
-.cursor-inner {
-  width: 8px;
-  height: 8px;
-  background: var(--neon-green);
-  mix-blend-mode: difference;
-  transition: width 0.2s ease-out, height 0.2s ease-out;
-  
-  &::after {
-    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 4px;
-    height: 4px;
-    background: #fff;
-    border-radius: 50%;
-    animation: pulseInner 1s ease-out infinite;
+    transition: width 0.2s, height 0.2s;
   }
 
-  &.cursor-hover {
-    width: 12px;
-    height: 12px;
-    background: var(--cyber-blue);
+  &.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(0, 255, 0, 0.1);
+    border-color: var(--primary-color);
+
+    &::after {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color);
+    }
+  }
+
+  &.clicking {
+    transform: translate(-50%, -50%) scale(0.8);
+    background: var(--primary-color);
     
     &::after {
-      animation: none;
+      width: 16px;
+      height: 16px;
+      background: transparent;
+      border: 2px solid var(--background-dark);
     }
   }
 }
 
-@keyframes rotateOuter {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
+// Ensure interactive elements work with custom cursor
+button, a, input[type="range"], input[type="checkbox"], .interactive {
+  &:hover {
+    cursor: none;
   }
 }
 
-@keyframes pulseOuter {
-  0% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-}
-
-@keyframes pulseInner {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+// Add glow effect to interactive elements
+button, input[type="range"], input[type="checkbox"], a {
+  &:hover {
+    ~ .custom-cursor {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-width: 2px;
+      background: rgba(0, 255, 0, 0.1);
+    }
   }
 }
 

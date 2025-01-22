@@ -1,86 +1,73 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import React, { useEffect, useState } from 'react';
 import './CustomCursor.scss';
 
 const CustomCursor = () => {
-  const cursorOuterRef = useRef(null);
-  const cursorInnerRef = useRef(null);
-  const requestRef = useRef();
-  const previousTimeRef = useRef();
-  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
-  const [linkHovered, setLinkHovered] = React.useState(false);
-
-  const onMouseMove = (event) => {
-    const { clientX, clientY } = event;
-    setMousePosition({ x: clientX, y: clientY });
-  };
-
-  const animateOuterCursor = (time) => {
-    if (previousTimeRef.current !== undefined) {
-      const deltaX = (mousePosition.x - cursorOuterRef.current.offsetLeft) / 8;
-      const deltaY = (mousePosition.y - cursorOuterRef.current.offsetTop) / 8;
-
-      cursorOuterRef.current.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
-    }
-    previousTimeRef.current = time;
-    requestRef.current = requestAnimationFrame(animateOuterCursor);
-  };
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('mousemove', onMouseMove);
-    requestRef.current = requestAnimationFrame(animateOuterCursor);
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
 
-    const innerCursor = cursorInnerRef.current;
-    const outerCursor = cursorOuterRef.current;
+    const handleMouseDown = () => {
+      setIsClicking(true);
+    };
 
-    gsap.set(innerCursor, {
-      x: mousePosition.x,
-      y: mousePosition.y,
+    const handleMouseUp = () => {
+      setIsClicking(false);
+    };
+
+    const handleMouseEnter = () => {
+      document.body.classList.add('custom-cursor-active');
+    };
+
+    const handleMouseLeave = () => {
+      document.body.classList.remove('custom-cursor-active');
+    };
+
+    // Add global event listeners
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mouseleave', handleMouseLeave);
+
+    // Add hover detection for interactive elements
+    const interactiveElements = document.querySelectorAll('button, a, input, .interactive');
+    const handleElementHover = (enter) => (e) => {
+      setIsHovering(enter);
+    };
+
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', handleElementHover(true));
+      element.addEventListener('mouseleave', handleElementHover(false));
     });
 
-    gsap.to(innerCursor, {
-      duration: 0.1,
-      x: mousePosition.x,
-      y: mousePosition.y,
-    });
+    // Cleanup function
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('mouseleave', handleMouseLeave);
 
-    const handleLinkHoverEvents = () => {
-      const linkElements = document.querySelectorAll('a, button, input, .interactive');
-      
-      linkElements.forEach((link) => {
-        link.addEventListener('mouseenter', () => {
-          setLinkHovered(true);
-        });
-        
-        link.addEventListener('mouseleave', () => {
-          setLinkHovered(false);
-        });
+      interactiveElements.forEach(element => {
+        element.removeEventListener('mouseenter', handleElementHover(true));
+        element.removeEventListener('mouseleave', handleElementHover(false));
       });
     };
-
-    handleLinkHoverEvents();
-
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(requestRef.current);
-    };
-  }, [mousePosition]);
-
-  useEffect(() => {
-    if (linkHovered) {
-      cursorInnerRef.current.classList.add('cursor-hover');
-      cursorOuterRef.current.classList.add('cursor-hover');
-    } else {
-      cursorInnerRef.current.classList.remove('cursor-hover');
-      cursorOuterRef.current.classList.remove('cursor-hover');
-    }
-  }, [linkHovered]);
+  }, []);
 
   return (
-    <>
-      <div ref={cursorOuterRef} className="cursor-outer"></div>
-      <div ref={cursorInnerRef} className="cursor-inner"></div>
-    </>
+    <div 
+      className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
+      style={{
+        left: `${position.x}px`, 
+        top: `${position.y}px`
+      }}
+    />
   );
 };
 

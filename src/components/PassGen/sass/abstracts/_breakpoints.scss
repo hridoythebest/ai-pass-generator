@@ -1,0 +1,22 @@
+@use "sass:map";
+@use "functions" as *;
+$breakpoints: (
+  xs: 0,
+  sm: em(576),
+  md: em(768),
+  lg: em(992),
+  xl: em(1200),
+  xxl: em(1400),
+);
+@mixin mediaMin($deviceSize, $customSize: false) {
+  $size: map.get($breakpoints, $deviceSize) or em($customSize);
+  @media only screen and (min-width: $size) {
+    @content;
+  }
+}
+@mixin mediaMax($deviceSize, $customSize: false) {
+  $size: map.get($breakpoints, $deviceSize) or $customSize;
+  @media only screen and (max-width: $size) {
+    @content;
+  }
+}

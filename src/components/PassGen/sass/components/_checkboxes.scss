@@ -1,0 +1,54 @@
+@use "../abstracts/functions" as *;
+.checkboxes {
+  width: 100%;
+  .checklist {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .label {
+      cursor: pointer;
+      font-size: rem(18);
+      text-transform: uppercase;
+      color: var(--light-color);
+    }
+    .checkbox {
+      cursor: pointer;
+      width: rem(68);
+      height: rem(28);
+      margin-bottom: rem(10);
+      position: relative;
+      .check {
+        cursor: pointer;
+        appearance: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+      }
+      .check-btn-svg {
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        overflow: visible;
+        .check-path {
+          width: rem(40);
+          height: rem(20);
+          fill: var(--main-color);
+        }
+        .circle {
+          fill: var(--light-color);
+          transition: cx 200ms ease;
+          filter: drop-shadow(
+            rem(0) rem(0) rem(8) hsla(var(--dark-color-val), 0.2)
+          );
+        }
+      }
+      .check:checked + .check-btn-svg .circle {
+        cx: 54;
+      }
+    }
+  }
+}

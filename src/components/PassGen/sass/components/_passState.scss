@@ -1,0 +1,58 @@
+@use "../abstracts/functions" as *;
+@use "../abstracts/breakpoints" as *;
+.pass-state {
+  overflow: hidden;
+  width: 100%;
+  height: rem(40);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: rem(20);
+  background-color: hsla(var(--light-color-val), 0.2);
+  position: relative;
+  z-index: 1;
+  .radio-btn {
+    -webkit-appearance: none;
+    z-index: 3;
+  }
+  .label-group {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 3;
+    .label {
+      cursor: pointer;
+      color: var(--light-color);
+      font-size: rem(16);
+      text-transform: uppercase;
+      @include mediaMin(false, 350) {
+        font-size: rem(18);
+      }
+    }
+  }
+  .slide-tab {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    &-rect {
+      width: 38%;
+      height: 100%;
+      fill: var(--main-color);
+      rx: rem(20);
+      transition: transform 120ms ease-in;
+    }
+  }
+  --tab-bg-pos: 33%;
+  &::after {
+    position: absolute;
+    inset: 0 auto 0 var(--tab-bg-pos);
+    content: "";
+    width: 33%;
+    height: 100%;
+    border-radius: rem(20);
+    background-color: var(--main-color);
+    transition: left 100ms ease;
+  }
+}

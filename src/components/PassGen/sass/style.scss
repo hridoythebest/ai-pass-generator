@@ -1,0 +1,20 @@
+@use "base";
+@use "abstracts/container";
+@use "abstracts/functions" as *;
+@use "abstracts/breakpoints" as *;
+@use "layout/passGen";
+
+:root {
+  --dark-color-val: 212, 19%, 16%;
+  --light-color-val: 0, 0%, 100%;
+  --main-color-val: 8, 100%, 64%;
+  --dark-color: hsl(var(--dark-color-val));
+  --light-color: hsl(var(--light-color-val));
+  --main-color: hsl(var(--main-color-val));
+  --range-height: #{rem(8)};
+  --range-roundness: #{rem(5)};
+  --thumb-size: #{rem(20)};
+}
+
+
+

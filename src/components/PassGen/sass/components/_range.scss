@@ -1,0 +1,48 @@
+@use "../abstracts/functions" as *;
+.range {
+  width: 100%;
+  height: rem(30);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .pass-range {
+    --track-width: 0%;
+    cursor: pointer;
+    width: 70%;
+    height: var(--range-height);
+    -webkit-appearance: none;
+    border-radius: var(--range-roundness);
+    background-color: hsla(var(--light-color-val), 0.2);
+    position: relative;
+    z-index: 1;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: var(--thumb-size);
+      height: var(--thumb-size);
+      background-color: var(--light-color);
+
+      border-radius: 50%;
+      filter: drop-shadow(rem(0) rem(0) rem(3) hsla(0, 0%, 0%, 0.643));
+    }
+    &::after {
+      position: absolute;
+      content: "";
+      width: var(--track-width);
+      height: var(--range-height);
+      border-radius: var(--range-roundness);
+      background-color: var(--main-color);
+      z-index: -1;
+      transform: width 100ms ease;
+    }
+  }
+  .pass-length {
+    width: 20%;
+    height: 100%;
+    font-size: rem(18);
+    text-align: center;
+    color: var(--light-color);
+    padding: rem(10);
+    border-radius: rem(20);
+    background-color: hsla(var(--light-color-val), 0.2);
+  }
+}

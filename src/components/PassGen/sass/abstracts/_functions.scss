@@ -1,0 +1,6 @@
+@function rem($pixel, $defaultRem: 16) {
+  @return calc($pixel / $defaultRem) * 1rem;
+}
+@function em($pixel, $defaultEm: 16) {
+  @return calc($pixel / $defaultEm) * 1em;
+}

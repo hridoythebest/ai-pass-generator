@@ -1,0 +1,37 @@
+@use "../abstracts/functions" as *;
+.gen-pass {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .pass-gen-list {
+    list-style-type: none;
+    .history-btn {
+      cursor: pointer;
+      width: rem(35);
+      height: rem(35);
+      border-radius: 50%;
+      font-size: rem(25);
+      color: var(--light-color);
+      background-color: var(--main-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .geretate-btn {
+      cursor: pointer;
+      font-size: rem(18);
+      text-transform: uppercase;
+      color: var(--light-color);
+      background-color: var(--main-color);
+      background: linear-gradient(
+        266.33deg,
+        hsl(8, 100%, 64%) 0%,
+        var(--main-color) 100%
+      );
+      padding: rem(5) rem(20);
+      border-radius: rem(25);
+      filter: drop-shadow(rem(0) rem(2) rem(10) rgba(255, 99, 74, 0.25));
+    }
+  }
+}

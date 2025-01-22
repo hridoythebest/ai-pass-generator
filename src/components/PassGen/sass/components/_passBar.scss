@@ -1,0 +1,45 @@
+@use "../abstracts/functions" as *;
+.pass-bar {
+    width: 100%;
+    height: rem(40);
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .hide-show {
+      cursor: pointer;
+      width: rem(40);
+      height: 100%;
+      font-size: rem(18);
+      color: var(--light-color);
+      background-color: hsla(var(--dark-color-val), 0.2);
+      opacity: 0.8;
+      transition: opacity 100ms ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .pass-io {
+      width: rem(200);
+      max-width: auto;
+      height: 100%;
+      flex-grow: 1;
+      font-size: rem(18);
+      padding: rem(5) rem(10);
+      text-align: center;
+      color: var(--light-color);
+    }
+    .copy-btn {
+      cursor: pointer;
+      width: rem(40);
+      height: 100%;
+      font-size: rem(20);
+      color: var(--light-color);
+      background-color: hsla(var(--dark-color-val), 0.2);
+      opacity: 0.8;
+      transition: opacity 100ms ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }

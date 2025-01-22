@@ -1,0 +1,22 @@
+@use "breakpoints" as *;
+@use "functions" as *;
+.container {
+  max-width: 100%;
+  padding: 0 rem(12);
+  margin: 0 auto;
+  @include mediaMin(sm) {
+    max-width: rem(540);
+  }
+  @include mediaMin(md) {
+    max-width: rem(720);
+  }
+  @include mediaMin(lg) {
+    max-width: rem(960);
+  }
+  @include mediaMin(xl) {
+    max-width: rem(1140);
+  }
+  @include mediaMin(xxl) {
+    max-width: rem(1320);
+  }
+}

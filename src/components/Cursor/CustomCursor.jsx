@@ -5,67 +5,54 @@ const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const onMouseMove = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
     };
 
-    const handleMouseDown = () => {
-      setIsClicking(true);
-    };
+    const onMouseLeave = () => setIsVisible(false);
+    const onMouseEnter = () => setIsVisible(true);
+    const onMouseDown = () => setIsClicking(true);
+    const onMouseUp = () => setIsClicking(false);
 
-    const handleMouseUp = () => {
-      setIsClicking(false);
-    };
-
-    const handleMouseEnter = () => {
-      document.body.classList.add('custom-cursor-active');
-    };
-
-    const handleMouseLeave = () => {
-      document.body.classList.remove('custom-cursor-active');
-    };
-
-    // Add global event listeners
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    // Add event listeners
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('mouseenter', onMouseEnter);
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mouseup', onMouseUp);
 
     // Add hover detection for interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, input, .interactive');
-    const handleElementHover = (enter) => (e) => {
-      setIsHovering(enter);
-    };
+    const interactiveElements = document.querySelectorAll(
+      'button, a, input[type="range"], input[type="checkbox"]'
+    );
 
-    interactiveElements.forEach(element => {
-      element.addEventListener('mouseenter', handleElementHover(true));
-      element.addEventListener('mouseleave', handleElementHover(false));
+    interactiveElements.forEach((el) => {
+      el.addEventListener('mouseenter', () => setIsHovering(true));
+      el.addEventListener('mouseleave', () => setIsHovering(false));
     });
 
-    // Cleanup function
+    // Cleanup
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-
-      interactiveElements.forEach(element => {
-        element.removeEventListener('mouseenter', handleElementHover(true));
-        element.removeEventListener('mouseleave', handleElementHover(false));
-      });
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('mouseup', onMouseUp);
     };
   }, []);
 
   return (
-    <div 
-      className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
+    <div
+      className={`custom-cursor ${isVisible ? 'visible' : ''} ${
+        isHovering ? 'hovering' : ''
+      } ${isClicking ? 'clicking' : ''}`}
       style={{
-        left: `${position.x}px`, 
-        top: `${position.y}px`
+        left: `${position.x}px`,
+        top: `${position.y}px`,
       }}
     />
   );

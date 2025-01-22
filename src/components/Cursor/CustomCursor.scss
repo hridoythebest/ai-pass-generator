@@ -1,73 +1,68 @@
-* {
-  cursor: none !important;
-}
-
 body {
-  overflow-x: hidden;
   cursor: none !important;
+
+  * {
+    cursor: none !important;
+  }
 }
 
 .custom-cursor {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid #00ff00;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   transform: translate(-50%, -50%);
-  opacity: 1;
-  background: transparent;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+
+  &.visible {
+    opacity: 1;
+  }
 
   &::after {
     content: '';
     width: 4px;
     height: 4px;
-    background: var(--primary-color);
+    background: #00ff00;
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
   }
 
   &.hovering {
     transform: translate(-50%, -50%) scale(1.5);
     background: rgba(0, 255, 0, 0.1);
-    border-color: var(--primary-color);
+    border-color: #00ff00;
 
     &::after {
       width: 8px;
       height: 8px;
-      background: var(--primary-color);
     }
   }
 
   &.clicking {
-    transform: translate(-50%, -50%) scale(0.8);
-    background: var(--primary-color);
-    
+    transform: translate(-50%, -50%) scale(0.9);
+    background: rgba(0, 255, 0, 0.2);
+
     &::after {
-      width: 16px;
-      height: 16px;
-      background: transparent;
-      border: 2px solid var(--background-dark);
+      width: 10px;
+      height: 10px;
     }
   }
 }
 
-// Ensure interactive elements work with custom cursor
-button, a, input[type="range"], input[type="checkbox"], .interactive {
-  &:hover {
-    cursor: none;
-  }
-}
-
-// Add glow effect to interactive elements
-button, input[type="range"], input[type="checkbox"], a {
+// Interactive elements hover effect
+button,
+input[type="range"],
+input[type="checkbox"],
+a {
   &:hover {
     ~ .custom-cursor {
       transform: translate(-50%, -50%) scale(1.5);

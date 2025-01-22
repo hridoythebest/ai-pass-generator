@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { geminiService } from '../../../../services/geminiService';
+import { geminiService } from '../../../services/geminiService';
 import '../sass/PasswordAnalysis.scss';
 
 const PasswordAnalysis = ({ password }) => {

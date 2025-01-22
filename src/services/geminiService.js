@@ -2,24 +2,45 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI("AIzaSyAeZm3FQmS1jO4oMrb4ZCQuLZW_EGPVWcs");
 
+// Helper function to extract JSON from markdown response
+const extractJSONFromResponse = (text) => {
+  try {
+    // Remove markdown code block syntax and find JSON content
+    const jsonMatch = text.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]);
+    }
+    throw new Error('No valid JSON found in response');
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return null;
+  }
+};
+
 export const geminiService = {
   async analyzePasswordStrength(password) {
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       
-      const prompt = `Analyze this password: "${password}" and provide a detailed security assessment including:
-      1. Overall strength (weak/medium/strong)
-      2. Time to crack estimation
-      3. Specific vulnerabilities
-      4. Improvement suggestions
-      Format the response in JSON.`;
+      const prompt = `Analyze this password: "${password}" and provide a security assessment in the following JSON format (respond ONLY with the JSON, no additional text):
+      {
+        "strength": "weak|medium|strong",
+        "timeToCrack": "estimated time to crack",
+        "vulnerabilities": ["list of specific vulnerabilities"],
+        "suggestions": ["list of improvement suggestions"]
+      }`;
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
-      return JSON.parse(response.text());
+      return extractJSONFromResponse(response.text());
     } catch (error) {
       console.error('Error analyzing password:', error);
-      return null;
+      return {
+        strength: "unknown",
+        timeToCrack: "unable to calculate",
+        vulnerabilities: ["Unable to analyze password strength"],
+        suggestions: ["Try again later"]
+      };
     }
   },
 
@@ -28,15 +49,23 @@ export const geminiService = {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       
       const prompt = `Generate 3 strong password suggestions based on these requirements: ${JSON.stringify(requirements)}. 
-      Consider modern password security standards and make them memorable but secure.
-      Format the response in JSON with password and explanation for each suggestion.`;
+      Respond ONLY with a JSON array in this exact format (no additional text):
+      [
+        {
+          "password": "suggested password",
+          "explanation": "why this password is strong and how it meets requirements"
+        }
+      ]`;
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
-      return JSON.parse(response.text());
+      return extractJSONFromResponse(response.text());
     } catch (error) {
       console.error('Error generating suggestions:', error);
-      return null;
+      return [{
+        password: "Unable to generate suggestion",
+        explanation: "Please try again later"
+      }];
     }
   }
 };

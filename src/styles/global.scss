@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  // Primary Colors
+  --neon-green: #0cff0c;
+  --cyber-blue: #0ff4ff;
+  --cyber-pink: #ff2a6d;
+  --cyber-yellow: #f1fa3c;
+  
+  // Main Theme Colors
+  --primary-color: var(--neon-green);
+  --secondary-color: var(--cyber-blue);
+  --accent-color: var(--cyber-pink);
+  --highlight-color: var(--cyber-yellow);
+  
+  // Background Colors
+  --background-dark: #0a0a0f;
+  --background-light: #1a1a2f;
+  --overlay-color: rgba(10, 10, 15, 0.8);
+  
+  // Text Colors
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  
+  // Status Colors
+  --error-color: #ff3333;
+  --success-color: var(--neon-green);
+  --warning-color: var(--cyber-yellow);
+  
+  // Gradients
+  --cyber-gradient: linear-gradient(
+    45deg,
+    var(--neon-green),
+    var(--cyber-blue)
+  );
+  --accent-gradient: linear-gradient(
+    45deg,
+    var(--cyber-pink),
+    var(--cyber-yellow)
+  );
+  
+  // Layout
+  --container-width: min(90%, 800px);
+  --border-radius: 20px;
+  --border-radius-sm: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background-color: var(--background-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+.content-wrapper {
+  width: var(--container-width);
+  max-width: 800px;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  padding: 2.5rem 2rem;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  animation: glow 2s ease-in-out infinite alternate;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2.5rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px var(--primary-color);
+  animation: textGlow 1.5s ease-in-out infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  cursor: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  width: auto;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(0, 255, 0, 0.1);
+    box-shadow: 0 0 15px var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 0, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+input {
+  background: var(--background-light);
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--primary-color);
+  }
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background: var(--background-dark);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 15px rgba(12, 255, 12, 0.2);
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  &.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  }
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 0 0 5px var(--primary-color);
+  }
+  to {
+    text-shadow: 0 0 15px var(--primary-color);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --container-width: 95%;
+  }
+
+  .content-wrapper {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+  }
+
+  input {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Hover Effects */
+.hover-glow {
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-shadow: 0 0 10px var(--primary-color);
+    color: var(--primary-light);
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}

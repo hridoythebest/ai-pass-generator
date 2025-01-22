@@ -1,0 +1,65 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  gap: 2rem;
+
+  .app-header {
+    text-align: center;
+    z-index: 1;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: var(--cyber-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(12, 255, 12, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .app-main {
+    width: 100%;
+    max-width: var(--container-width);
+    z-index: 1;
+  }
+
+  .app-footer {
+    margin-top: auto;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    z-index: 1;
+
+    p {
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+#tsparticles {
+  position: fixed !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}

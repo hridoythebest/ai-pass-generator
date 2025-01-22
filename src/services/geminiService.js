@@ -22,12 +22,28 @@ export const geminiService = {
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       
-      const prompt = `Analyze this password: "${password}" and provide a security assessment in the following JSON format (respond ONLY with the JSON, no additional text):
+      const prompt = `Analyze this password: "${password}" and provide a detailed security assessment in the following JSON format (respond ONLY with the JSON, no additional text):
       {
         "strength": "weak|medium|strong",
         "timeToCrack": "estimated time to crack",
         "vulnerabilities": ["list of specific vulnerabilities"],
-        "suggestions": ["list of improvement suggestions"]
+        "suggestions": ["list of improvement suggestions"],
+        "commonPatterns": ["list of common patterns found in the password"],
+        "uniqueFeatures": ["list of unique or strong features"],
+        "memorabilityScore": "1-10 rating with explanation",
+        "entropyScore": "bits of entropy",
+        "breachHistory": {
+          "similarPasswords": "description of similar passwords in breaches",
+          "riskLevel": "low|medium|high"
+        },
+        "aiResistance": {
+          "score": "1-10",
+          "explanation": "how resistant it is to AI guessing"
+        },
+        "quantumResistance": {
+          "assessment": "weak|moderate|strong",
+          "explanation": "explanation of quantum computing resistance"
+        }
       }`;
 
       const result = await model.generateContent(prompt);
@@ -49,23 +65,31 @@ export const geminiService = {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       
       const prompt = `Generate 3 strong password suggestions based on these requirements: ${JSON.stringify(requirements)}. 
-      Respond ONLY with a JSON array in this exact format (no additional text):
-      [
-        {
-          "password": "suggested password",
-          "explanation": "why this password is strong and how it meets requirements"
-        }
-      ]`;
+      Ensure passwords are both secure and memorable. Return in JSON format:
+      {
+        "passwords": [
+          {
+            "value": "the password",
+            "strength": "description of strength",
+            "memoryTip": "how to remember it"
+          }
+        ]
+      }`;
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
       return extractJSONFromResponse(response.text());
     } catch (error) {
-      console.error('Error generating suggestions:', error);
-      return [{
-        password: "Unable to generate suggestion",
-        explanation: "Please try again later"
-      }];
+      console.error('Error generating passwords:', error);
+      return {
+        passwords: [
+          {
+            value: "Error generating password",
+            strength: "unknown",
+            memoryTip: "Please try again"
+          }
+        ]
+      };
     }
   }
 };

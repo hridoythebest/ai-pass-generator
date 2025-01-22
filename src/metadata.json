@@ -1,0 +1,149 @@
+{
+  "developer": {
+    "name": "Md Hridoy Hossain",
+    "nickname": "Hridoy",
+    "slug": "hridoythebest",
+    "profession": "Passionate Python Developer",
+    "github": "https://github.com/hridoythebest",
+    "education": {
+      "degree": "M.Sc in Fisheries",
+      "institution": "National University",
+      "year": "2017-2018",
+      "gpa": "3.19 out of 4.00"
+    },
+    "languages": {
+      "Bangla": "Native",
+      "English": "Professional",
+      "Hindi": "Comfortable"
+    },
+    "skills": {
+      "technical": [
+        "Python Development",
+        "Web Development",
+        "Database Management",
+        "Software Development",
+        "Project Management",
+        "AI Integration",
+        "Process Automation",
+        "Bot Development",
+        "Workflow Optimization",
+        "Task Automation Scripts"
+      ],
+      "soft": [
+        "Eagerness to learn and adapt",
+        "Diligent and committed",
+        "Strong work ethic",
+        "Innovation-driven mindset",
+        "Problem-solving focus"
+      ]
+    },
+    "experience": [
+      {
+        "company": "Netizen IT",
+        "position": "Business Executive Partner",
+        "period": "June 2017 - Present",
+        "responsibilities": [
+          "Software Presentation and Agreement",
+          "Data Collection and Software Installation",
+          "Software Training and Support",
+          "Research and Development Based Client Feedback"
+        ]
+      },
+      {
+        "company": "Shamim IT",
+        "position": "Lead Developer",
+        "period": "February 2020 - September 2023",
+        "responsibilities": [
+          "Customize HRM Software development",
+          "Organization Portfolio Website Development",
+          "Social Media Website and Apps Development",
+          "Search Engine Optimization",
+          "Contact Manager and Development team in Local and Global",
+          "Create Project Development Roadmap"
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "name": "draggable_slider",
+        "tech": "JavaScript",
+        "type": "Public"
+      },
+      {
+        "name": "login-page",
+        "tech": "CSS",
+        "type": "Public"
+      },
+      {
+        "name": "MatrixWebsite",
+        "tech": "JavaScript",
+        "type": "Public"
+      },
+      {
+        "name": "project_travel_advisor",
+        "tech": "JavaScript",
+        "type": "Public"
+      },
+      {
+        "name": "delish",
+        "tech": "HTML",
+        "type": "Public"
+      }
+    ],
+    "additionalInfo": {
+      "interests": [
+        "New Technologies",
+        "Software Development",
+        "Project Management",
+        "Team Leadership",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Process Automation",
+        "Workflow Optimization"
+      ],
+      "workStyle": "Both individual and team settings",
+      "learningStyle": "Always keen on exploring new technologies and methodologies",
+      "mission": "Developing innovative solutions that automate repetitive tasks and enhance productivity",
+      "impact": "Successfully automated 75% of clerical tasks through custom solutions",
+      "focus": {
+        "primary": "AI-driven development and automation",
+        "goals": [
+          "Learning and implementing AI in software development",
+          "Creating user-centric automation solutions",
+          "Reducing manual workload through technology",
+          "Making life easier through innovative applications"
+        ],
+        "achievements": [
+          "Developed multiple automation scripts and bots",
+          "Reduced manual workload by 75% through automation",
+          "Created efficient workflow solutions",
+          "Implemented AI-powered features in applications"
+        ]
+      }
+    }
+  },
+  "project": {
+    "name": "AI Password Generator",
+    "version": "1.0.0",
+    "description": "A modern password generator with AI-powered analysis",
+    "tech_stack": {
+      "frontend": [
+        "React",
+        "SCSS",
+        "JavaScript"
+      ],
+      "ai": [
+        "Google Gemini AI"
+      ]
+    },
+    "features": [
+      "Custom cursor with interactive effects",
+      "Real-time password strength analysis",
+      "AI-powered security assessment",
+      "Quantum computing resistance analysis",
+      "Password breach detection",
+      "Memory score calculation",
+      "Entropy analysis"
+    ]
+  }
+}

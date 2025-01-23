@@ -139,16 +139,49 @@ const GenPass = () => {
         <div className="settings-panel">
           <h3>Password Settings</h3>
           <div className="settings-grid">
-            <div className="setting-item">
-              <label htmlFor="length">Length: {settings.length}</label>
-              <input
-                type="range"
-                id="length"
-                min="8"
-                max="32"
-                value={settings.length}
-                onChange={(e) => setSettings({ ...settings, length: parseInt(e.target.value) })}
-              />
+            <div className="setting-item length-setting">
+              <div className="length-header">
+                <label htmlFor="length">Length</label>
+                <div className="length-control">
+                  <button 
+                    className="length-btn"
+                    onClick={() => setSettings(prev => ({ 
+                      ...prev, 
+                      length: Math.max(8, prev.length - 1)
+                    }))}
+                  >
+                    -
+                  </button>
+                  <span className="length-value">{settings.length}</span>
+                  <button 
+                    className="length-btn"
+                    onClick={() => setSettings(prev => ({ 
+                      ...prev, 
+                      length: Math.min(32, prev.length + 1)
+                    }))}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div className="slider-container">
+                <input
+                  type="range"
+                  id="length"
+                  min="8"
+                  max="32"
+                  step="1"
+                  value={settings.length}
+                  onChange={(e) => setSettings({ ...settings, length: parseInt(e.target.value) })}
+                  className="length-slider"
+                />
+                <div className="length-marks">
+                  <span>8</span>
+                  <span>16</span>
+                  <span>24</span>
+                  <span>32</span>
+                </div>
+              </div>
             </div>
             <div className="setting-item">
               <label>

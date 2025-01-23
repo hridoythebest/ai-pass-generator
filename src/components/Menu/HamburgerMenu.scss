@@ -8,26 +8,26 @@
     position: fixed;
     top: 1rem;
     right: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid var(--primary-color);
+    background: transparent;
     color: var(--primary-color);
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1001;
+    padding: 0.5rem;
 
     &:hover {
-      background: rgba(0, 255, 0, 0.1);
-      transform: rotate(180deg);
+      color: var(--text-primary);
+      transform: scale(1.1);
     }
 
     svg {
       font-size: 1.5rem;
+      filter: drop-shadow(0 0 5px rgba(var(--primary-color-rgb), 0.5));
     }
   }
 
@@ -254,7 +254,7 @@
     }
 
     .menu-toggle {
-      background: rgba(0, 255, 0, 0.1);
+      color: var(--text-primary);
     }
   }
 }

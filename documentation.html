@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Password Generator - Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: #f5f5f5;
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AI Password Generator</h1>
+        <p>Version 1.0.0 | By Hridoy</p>
+    </div>
+
+    <div class="section">
+        <h2>📋 Table of Contents</h2>
+        <ol>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#usage">Usage Guide</a></li>
+            <li><a href="#customization">Customization</a></li>
+            <li><a href="#support">Support</a></li>
+        </ol>
+    </div>
+
+    <div class="section" id="introduction">
+        <h2>🎯 Introduction</h2>
+        <p>AI Password Generator is a modern, React-based web application that uses artificial intelligence to generate and analyze secure passwords. Built with the latest web technologies and featuring a cyberpunk-inspired design, this tool helps users create strong, memorable passwords while providing real-time security analysis.</p>
+    </div>
+
+    <div class="section" id="features">
+        <h2>✨ Features</h2>
+        <ul>
+            <li>AI-powered password generation and analysis</li>
+            <li>Real-time password strength visualization</li>
+            <li>Customizable password length and character sets</li>
+            <li>Modern, responsive UI with cyberpunk theme</li>
+            <li>Password breach detection</li>
+            <li>Quantum computing resistance assessment</li>
+            <li>Comprehensive documentation system</li>
+        </ul>
+    </div>
+
+    <div class="section" id="installation">
+        <h2>⚙️ Installation</h2>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Node.js (v16.0.0 or higher)</li>
+            <li>npm (v7.0.0 or higher)</li>
+            <li>Google Gemini AI API key</li>
+        </ul>
+
+        <h3>Step-by-Step Installation</h3>
+        <pre><code>
+# 1. Extract the downloaded zip file
+
+# 2. Navigate to the project directory
+cd ai-password-generator
+
+# 3. Install dependencies
+npm install
+
+# 4. Create .env file and add your Gemini API key
+VITE_GEMINI_API_KEY=your_api_key_here
+
+# 5. Start the development server
+npm run dev
+
+# 6. For production build
+npm run build
+        </code></pre>
+    </div>
+
+    <div class="section" id="configuration">
+        <h2>⚡ Configuration</h2>
+        <h3>Environment Variables</h3>
+        <p>Create a <code>.env</code> file in the root directory with the following variables:</p>
+        <pre><code>
+VITE_GEMINI_API_KEY=your_api_key_here
+        </code></pre>
+
+        <h3>Build Configuration</h3>
+        <p>The project uses Vite for building. You can modify the build configuration in <code>vite.config.js</code>.</p>
+    </div>
+
+    <div class="section" id="usage">
+        <h2>📖 Usage Guide</h2>
+        <h3>Basic Usage</h3>
+        <ol>
+            <li>Open the application in your web browser</li>
+            <li>Use the slider to set desired password length</li>
+            <li>Toggle character sets (uppercase, lowercase, numbers, symbols)</li>
+            <li>Click "Generate Password" to create a new password</li>
+            <li>Use the copy button to copy the password to clipboard</li>
+        </ol>
+
+        <h3>Advanced Features</h3>
+        <ul>
+            <li>View real-time password strength analysis</li>
+            <li>Check password against common patterns</li>
+            <li>Assess quantum computing resistance</li>
+            <li>Access comprehensive documentation via the menu</li>
+        </ul>
+    </div>
+
+    <div class="section" id="customization">
+        <h2>🎨 Customization</h2>
+        <h3>Styling</h3>
+        <p>The application uses SCSS for styling. Main style files are located in:</p>
+        <ul>
+            <li><code>src/styles/</code> - Global styles</li>
+            <li><code>src/components/*/sass/</code> - Component-specific styles</li>
+        </ul>
+
+        <h3>Theme Customization</h3>
+        <p>You can modify the theme variables in <code>src/styles/_variables.scss</code>:</p>
+        <pre><code>
+:root {
+    --primary-color: #00ff00;
+    --background-dark: #000;
+    --text-primary: #fff;
+    // ... other variables
+}
+        </code></pre>
+    </div>
+
+    <div class="section" id="support">
+        <h2>🆘 Support</h2>
+        <p>For support, bug reports, or feature requests, please contact:</p>
+        <ul>
+            <li>Email: hridoythebest@gmail.com</li>
+            <li>Website: https://github.com/hridoythebest</li>
+            <li>GitHub Issues: https://github.com/hridoythebest/ai-pass-generator/issues</li>
+        </ul>
+
+        <div class="note">
+            <strong>Note:</strong> Please include your purchase code when requesting support.
+        </div>
+    </div>
+
+</body>
+</html>
